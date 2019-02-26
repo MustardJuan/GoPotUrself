@@ -1,0 +1,2 @@
+# GoPotUrself
+Dockered Golang Honeypot
