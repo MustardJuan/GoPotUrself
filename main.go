@@ -12,6 +12,7 @@ func main() {
 	//Key, Value similar to dictionary can have more added at a later time
 	cmdList := map[string] vanilla {
 	"ifconfig": ifconfig,
+	"ps": ps,
 	}
 	//Scanner class to indefinetly read in input from user
 	scanner := bufio.NewScanner(os.Stdin)
@@ -22,7 +23,9 @@ func main() {
 		//Checks the input to the map to see if a function needs to be called
 		for cmds := range cmdList {
 			if cmdLineInput == cmds{
+				//just here for testing purposes, will remove
 				fmt.Println("That's a command my dude")
+				//actual function call happens here using map, not user input
 				fmt.Println(cmdList[cmds])
 			}
 		}
