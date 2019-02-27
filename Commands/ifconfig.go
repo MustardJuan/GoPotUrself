@@ -1,11 +1,11 @@
 package main
 
-import "fmt"
+//For now formatting will stay all wonky, will fix at alter time
+//Will do some random IP generation later and what not
 
-func ifconfig(){
-	
-	fmt.Println("enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500\n" + 
-        "	inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255\n" +
+func ifconfig() string {
+	output := ("enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500\n" + 
+        "	inet 10.0.133.70  netmask 255.255.255.0  broadcast 10.0.2.255\n" +
         "	inet6 fe80::af79:52e8:8bd7:ab09  prefixlen 64  scopeid 0x20<link>\n" +
         "	ether 08:00:27:37:29:52  txqueuelen 1000  (Ethernet)\n" +
         "	RX packets 271  bytes 196172 (196.1 KB)\n" +
@@ -20,5 +20,6 @@ func ifconfig(){
         "	RX errors 0  dropped 0  overruns 0  frame 0\n" +
         "	TX packets 189  bytes 14962 (14.9 KB)\n" +
         "	TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0\n")
-
+	
+	return output
 }
