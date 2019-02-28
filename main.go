@@ -11,9 +11,11 @@ func main() {
 	output := ""
 	//Defined Map data structure of strings using type vanilla
 	//Key, Value similar to dictionary can have more added at a later time
-	cmdList := map[string] vanilla {
+	cmdList := map[string]vanilla{
 		"ifconfig": Ifconfig,
-		"ps": Ps,
+		"ps":       Ps,
+		"ls":       Ls,
+		"pwd":	    Pwd,
 	}
 	//Scanner class to indefinetly read in input from user
 	scanner := bufio.NewScanner(os.Stdin)
@@ -22,7 +24,7 @@ func main() {
 		cmdLineInput := scanner.Text()
 		//Checks the input to the map to see if a function needs to be called
 		for cmds := range cmdList {
-			if cmdLineInput == cmds{
+			if cmdLineInput == cmds {
 				//actual function call happens here using map, not user input
 				cmdList[cmds](&output)
 				fmt.Print(output)
