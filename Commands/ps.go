@@ -10,14 +10,14 @@ import "strconv"
 //e.g. more processes open so the PID should go up for x,y,z services
 //additionally the time will be treated the same
 
-func ps() string {
+func Ps(output *string) {
 
 	currentTime := time.Now()
 	formatted := fmt.Sprintf("%02d:%02d:%02d", 
 	currentTime.Hour(), currentTime.Minute(), currentTime.Second())
-	output := ("  PID TTY          TIME CMD\n" +
+	
+	*output = ("  PID TTY          TIME CMD\n" +
  	strconv.Itoa(rand.Intn(5000))+" pts/0    "+formatted+" bash\n" +
  	strconv.Itoa(rand.Intn(5000))+" pts/0    "+formatted+" ps\n")
 
-	return output
 }
