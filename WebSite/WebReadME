@@ -1,0 +1,1 @@
+Dockerfile miust contain some variant of: COPY src/ /var/www/html to function properly 
