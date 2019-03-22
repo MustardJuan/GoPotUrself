@@ -11,8 +11,7 @@
 
 <div class="container" id="main-content">
 	<h2>Welcome to my website!</h2>
-	<p>Some content goes here! Let's go with the classic "lorem ipsum."</p>
-
+	
 	<p>
 		Hey man this is totally working now!
 	</p>
