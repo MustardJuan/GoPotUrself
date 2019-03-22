@@ -11,6 +11,7 @@
 
 <div class="container" id="main-content">
 	<h2>Contact Us</h2>
+	
 	<p>
 		I'll make this simple, just please don't. 
 	</p>
