@@ -1,5 +1,9 @@
 <?php
 	switch ($_SERVER["SCRIPT_NAME"]) {
+		case "/php-template/pictures.php":
+			$CURRENT_PAGE = "Pictures"; 
+			$PAGE_TITLE = "Pics";
+			break;
 		case "/php-template/FirstPage.php":
 			$CURRENT_PAGE = "FirstPage"; 
 			$PAGE_TITLE = "First Page";
@@ -13,3 +17,4 @@
 			$PAGE_TITLE = "Welcome to my homepage!";
 	}
 ?>
+
