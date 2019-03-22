@@ -10,7 +10,7 @@
 <?php include("includes/navigation.php");?>
 
 <div class="container" id="main-content">
-	<h2>Welcome to my website!</h2>
+	<h2>Artsy and Vacay Pictures</h2>
 	
 	<p>
 		I'm going to add images here I promise. 
