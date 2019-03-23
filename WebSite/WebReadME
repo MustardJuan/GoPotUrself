@@ -1,1 +1,3 @@
-Dockerfile miust contain some variant of: COPY WebSite/ /var/www/html to function properly 
+Dockerfile miust contain some variant of: COPY WebSite/ /var/www/html
+
+Where the docker file and the directory containing the webfiles are in the same parent directory
