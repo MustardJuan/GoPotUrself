@@ -28,14 +28,14 @@
       if(empty($errors)==true){
          move_uploaded_file($file_tmp,"images/".$file_name);
          echo "Success";
-      }else{
+      } else {
          print_r($errors);
       }
    }
 ?>
 
 <form action="" method="POST" enctype="multipart/form-data">
-   <input type="file" name="image" />
+  <input type="file" name="image" />
   <input type="submit"/>
 </form>
 
