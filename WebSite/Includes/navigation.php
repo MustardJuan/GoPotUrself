@@ -8,9 +8,11 @@
 	  </li>
 	  <li class="nav-item">
 	    <a class="nav-link <?php if ($CURRENT_PAGE == "Pictures") {?>active<?php }?>" href="pictures.php">Pics</a>
-	  </li>	  <li class="nav-item">
+	  </li>	 
+	  <li class="nav-item">
 	    <a class="nav-link <?php if ($CURRENT_PAGE == "Contact") {?>active<?php }?>" href="contact.php">Contact</a>
 	  </li>
-	</ul>
+ 	  <li class="nav-item">
+	    <a class="nav-link <?php if ($CURRENT_PAGE == "Uploads") {?>active<?php }?>" href="upload.php">Whoo Buddy</a>
+	  </li>	</ul>
 </div>
-
