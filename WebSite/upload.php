@@ -24,11 +24,7 @@
       if(in_array($file_ext,$extensions)=== false){
          $errors[]="extension not allowed, please choose a JPEG or PNG file.";
       }
-      //There's something busted here, i'll fix it later but this seems to be an issue for smaller files I think 
-      if($file_size > 2097152){
-         $errors[]='File size must be 2 MB';
-      }
-      
+            
       if(empty($errors)==true){
          move_uploaded_file($file_tmp,"images/".$file_name);
          echo "Success";
@@ -38,10 +34,11 @@
    }
 ?>
 
-   <form action="" method="POST" enctype="multipart/form-data">
-      <input type="file" name="image" />
-      <input type="submit"/>
-   </form>
+<form action="" method="POST" enctype="multipart/form-data">
+   <input type="file" name="image" />
+  <input type="submit"/>
+</form>
+
 </div>
 
 <?php include("includes/footer.php");?>
