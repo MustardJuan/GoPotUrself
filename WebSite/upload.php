@@ -18,17 +18,18 @@
 	
 	// Try to upload file
 	if(isset($_POST["submit"])) {
-   		if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-       			echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-   		} else {
-       			echo "Sorry, there was an error uploading your file.";
-   		}
-	}	
+		
+		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "php" ) {
+    			$uploadOk = 0;
+		}	
+   		if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file) && $uploadOk != 0) {
+       			echo "It should be on your computer now!!";
+		}	
+	}
 ?>
 <body>
 
 <form action="upload.php" method="post" enctype="multipart/form-data">
-    Select image to upload:
     <input type="file" name="fileToUpload" id="fileToUpload">
     <input type="submit" value="Upload Image" name="submit">
 </form>

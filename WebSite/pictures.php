@@ -10,10 +10,10 @@
 <?php include("includes/navigation.php");?>
 
 <div class="container" id="main-content">
-	<h2>Artsy and Vacay Pictures</h2>
+	<h2>My Vacay Pics and Life</h2>
 	
 	<p>
-		I'm going to add images here I promise. 
+		Images equal some sort of thing 
 	</p>
 </div>
 

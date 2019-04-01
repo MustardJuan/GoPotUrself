@@ -15,9 +15,9 @@
 	<p>
 		Hey man this is totally working now!
 	</p>
-	<p>
-		Check me out with my flashy webpage fuck yeah!!!
-	</p>
+	<h2>
+		Check me out with my flashy webpage yeah!!!
+	</h2>
 </div>
 
 <?php include("includes/footer.php");?>
