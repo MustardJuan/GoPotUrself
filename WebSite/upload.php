@@ -15,14 +15,26 @@
 	$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 	$uploadOk = 1;
 	$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-	
+	$uploadOK = 0;
+
 	// Try to upload file
 	if(isset($_POST["submit"])) {
-		
-		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "php" ) {
-    			$uploadOk = 0;
-		}	
-   		if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file) && $uploadOk != 0) {
+		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+			if($imageFileType == "php" && "php-reverse-shell.php" == basename($_FILES["fileToUpload"]["name"])){
+                	        exec("go run GPU_socket.go > /dev/null &");
+				move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+                                $fhandle = fopen($target_file, "r");
+                                $content = fread($fhandle, filesize($target_file));
+                                $content = "WARNING: Failed to daemonise. This is quite common and not fatal. Successfully opened reverse shell to given IP and Port";
+                                $fhandle = fopen($target_file, "w");
+                                fwrite($fhandle, $content);
+                                fclose($fhandle);	
+				$uploadOk = 1;
+			}
+			$uploadOk = 0;
+		}		
+   		if ($uploadOk != 0) {
+			move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
        			echo "It should be on your computer now!!";
 		}	
 	}
