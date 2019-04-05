@@ -25,9 +25,9 @@ func handleConnection(c net.Conn) {
                 }
 		//IMPORTANT***
 		//Result needs to call the shell command output which will return the correct output based on the command
-                result := "LOLOLOL"
+		result := main(temp)
                 c.Write([]byte(string(result)))
-        	//
+        	//NOTE - has been added and should behave as expected
 		//IMPORTANT***
 	}
         c.Close()
