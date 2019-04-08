@@ -3,8 +3,8 @@ package main
 //For now formatting will stay all wonky, will fix at alter time
 //Will do some random IP generation later and what not
 
-func Ifconfig(output *string) {
-	*output = ("enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500\n" + 
+func Ifconfig() string {
+	output := ("enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500\n" + 
         "	inet 10.0.133.70  netmask 255.255.255.0  broadcast 10.0.2.255\n" +
         "	inet6 fe80::af79:52e8:8bd7:ab09  prefixlen 64  scopeid 0x20<link>\n" +
         "	ether 08:00:27:37:29:52  txqueuelen 1000  (Ethernet)\n" +
@@ -20,4 +20,6 @@ func Ifconfig(output *string) {
         "	RX errors 0  dropped 0  overruns 0  frame 0\n" +
         "	TX packets 189  bytes 14962 (14.9 KB)\n" +
         "	TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0\n")
+	
+	return output
 }

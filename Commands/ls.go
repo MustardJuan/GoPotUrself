@@ -1,5 +1,6 @@
 package main
 
-func Ls(output *string) {
-	*output = ("Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos\n")
+func Ls() string {
+	output := ("Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos\n")
+	return output
 }
