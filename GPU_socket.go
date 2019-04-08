@@ -8,6 +8,7 @@ import "bufio"
 import "strings" 
 
 func handleConnection(c net.Conn) {
+
 	//outputs connecting IP and port
         fmt.Printf("Serving %s\n", c.RemoteAddr().String())
         for {
@@ -25,7 +26,7 @@ func handleConnection(c net.Conn) {
                 }
 		//IMPORTANT***
 		//Result needs to call the shell command output which will return the correct output based on the command
-		result := main(temp)
+		result := CmdLookup(temp)
                 c.Write([]byte(string(result)))
         	//NOTE - has been added and should behave as expected
 		//IMPORTANT***
@@ -53,4 +54,4 @@ func main() {
 		//golang handling multiple connections 
                 go handleConnection(c)
         }
-  }
+}
