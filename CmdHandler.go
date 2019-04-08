@@ -22,5 +22,6 @@ func CmdLookup(cmdLineInput string) string {
 			return output
 		}
 	}
-	return "Somethings wrong\n"
+	//if the command isnt present we just tell them they dont have the privs for that command
+	return "Something Something you need to priv esc\n"
 }

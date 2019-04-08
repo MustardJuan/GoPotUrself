@@ -8,9 +8,14 @@ import "bufio"
 import "strings" 
 
 func handleConnection(c net.Conn) {
+	
+	//initial output to emualte the fake reverse shell
+	lies := "Composing this is gonna be a pain so for now how about just a hello\n" 	
+	c.Write([]byte(string(lies)))
 
 	//outputs connecting IP and port
         fmt.Printf("Serving %s\n", c.RemoteAddr().String())
+
         for {
 		//realtime input handler
                 netData, err := bufio.NewReader(c).ReadString('\n')
