@@ -2,12 +2,21 @@ FROM ubuntu:xenial
 RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y golang git apache2 openssh-server php php7.0-mysql libapache2-mod-php7.0 curl lynx-cur
 
-# Old SSHd server stuff TB removed
-# EXPOSE 22
-# ENTRYPOINT ["/entrypoint.sh"]
-# COPY rootfs/ /
-# RUN sed -i s/#PermitRootLogin.*/PermitRootLogin\ yes/ /etc/ssh/sshd_config && echo "root:root" | chpasswd
+# Add GoPotUrself Golang code
+WORKDIR $GOPATH/src/github.com/
+RUN git clone -b packaging https://github.com/Mustard1/GoPotUrself.git
+RUN cd GoPotUrself/shell/
+RUN go build
+RUN go install
+RUN cd ../
+RUN go build
+RUN go install
+RUN export PATH=/bin:$PATH
 
+WORKDIR /
+
+# Expose port 8080 for shell
+EXPOSE 8080
 
 # Enable apache mods.
 RUN a2enmod php7.0
@@ -36,25 +45,4 @@ ADD ./apache-config.conf /etc/apache2/sites-enabled/000-default.conf
 
 # By default start up apache in the foreground, override with /bin/bash for interative.
 CMD /usr/sbin/apache2ctl -D FOREGROUND
-
-# Add GoPotUrself Golang code
-WORKDIR $GOPATH/src/github.com/
-RUN git clone https://github.com/Mustard1/GoPotUrself.git
-WORKDIR /
-
-# Enable SSHd server
-# RUN mkdir /var/run/sshd
-# RUN echo 'root:root' | chpasswd
-# RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-
-# SSH login fix. Otherwise user is kicked off after login
-# RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
-
-# ENV NOTVISIBLE "in users profile"
-# RUN echo "export VISIBLE=now" >> /etc/profile
-
-# Messing around with adding additional users 
-#RUN useradd -ms /bin/bash admin
-#USER admin
-#WORKDIR /home/admin
 

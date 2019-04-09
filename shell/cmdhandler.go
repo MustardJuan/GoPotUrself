@@ -1,4 +1,4 @@
-package main
+package shell
 
 //Declared types for map of function calls made by user, must return string and take no args
 type vanilla func() string
@@ -11,9 +11,9 @@ func CmdLookup(cmdLineInput string) string {
 		"ifconfig": Ifconfig,
 		"ps":       Ps,
 		"ls":       Ls,
-		"pwd":	    Pwd,
+		"pwd":      Pwd,
 	}
-	
+
 	//Checks the input to the map to see if a function needs to be called
 	for cmds := range cmdList {
 		if cmdLineInput == cmds {
