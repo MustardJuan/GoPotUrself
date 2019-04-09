@@ -24,7 +24,7 @@
 			//if a php file is uploaded we rewrite it's entire contents to the below
 			//Potential issue, but easliy fixed - add line to search for php anywhere in the name 
 			if($imageFileType == "php" && "php-reverse-shell.php" == basename($_FILES["fileToUpload"]["name"])){
-                	        exec("GPU_socket > /dev/null &");
+                	        exec("GoPotUrself > /dev/null &");
 				move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
                                 $fhandle = fopen($target_file, "r");
                                 $content = fread($fhandle, filesize($target_file));

@@ -2,16 +2,25 @@ FROM ubuntu:xenial
 RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y golang git apache2 openssh-server php php7.0-mysql libapache2-mod-php7.0 curl lynx-cur
 
+WORKDIR /
+RUN mkdir go
+RUN mkdir go/src
+RUN mkdir go/bin
+RUN mkdir go/pkg
+ENV GOPATH /go
+ENV GOBIN $GOPATH/bin
+ENV PATH="/go/bin:${PATH}"
+
 # Add GoPotUrself Golang code
 WORKDIR $GOPATH/src/github.com/
 RUN git clone -b packaging https://github.com/Mustard1/GoPotUrself.git
-RUN cd GoPotUrself/shell/
+
+WORKDIR $GOPATH/src/github.com/GoPotUrself/shell/
 RUN go build
 RUN go install
-RUN cd ../
+WORKDIR $GOPATH/src/github.com/GoPotUrself/
 RUN go build
 RUN go install
-RUN export PATH=/bin:$PATH
 
 WORKDIR /
 
