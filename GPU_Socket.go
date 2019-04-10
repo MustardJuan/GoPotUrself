@@ -3,6 +3,7 @@ package main
 import "net"
 import "fmt"
 import "bufio"
+import "strings"
 
 /*
 So a few floating things here:
@@ -12,9 +13,6 @@ So a few floating things here:
 2. From the PHP we need a way to make this outbound connection loop
 	-I think we can handle this with concurrency in golang
 	-Or maybe theres some php that we can use to run the code on page visit
-3. For some reason CmdLookup isnt working now but I'm not entirely sure why?
-	-Could be something I'm doing wrong but the message sent is a string
-	-Need to figure out whats wrong there
 */
 
 func main() {
@@ -32,11 +30,19 @@ func main() {
 	for { 
     
 		// listen for reply and then display it to the web app owner
-		message, _ := bufio.NewReader(conn).ReadString('\n')
+		message, err := bufio.NewReader(conn).ReadString('\n')
+		
+		if err != nil {
+
+			fmt.Println(err)
+			return
+		}
+		
+		output := strings.TrimSpace(string(message))
 		fmt.Print("Message from server: " + message)
 		
 		// send the fake output to the malicious server
-		output := CmdLookup(message)
+		output = CmdLookup(output)
 		fmt.Fprintf(conn, output)
 
 	}
