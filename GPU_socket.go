@@ -1,63 +1,49 @@
 package main
 
-import "math/rand"
-import "time"
 import "net"
 import "fmt"
 import "bufio"
 import "strings"
 import "github.com/GoPotUrself/shell"
 
-func handleConnection(c net.Conn) {
-
-	//initial output to emualte the fake reverse shell
-	lies := "Composing this is gonna be a pain so for now how about just a hello\n"
-	c.Write([]byte(string(lies)))
-
-	//outputs connecting IP and port
-	fmt.Printf("Serving %s\n", c.RemoteAddr().String())
-
-	for {
-		//realtime input handler
-		netData, err := bufio.NewReader(c).ReadString('\n')
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-		//formalizes input to remove whitespaces leading and trailing
-		temp := strings.TrimSpace(string(netData))
-		//special sauce we'll use in order to break the connection cleanly
-		if temp == "YES I KNOW I GOT BOOMED NOW PLEASE STOP THIS" {
-			break
-		}
-		//IMPORTANT***
-		//Result needs to call the shell command output which will return the correct output based on the command
-		result := shell.CmdLookup(temp)
-		c.Write([]byte(string(result)))
-		//NOTE - has been added and should behave as expected
-		//IMPORTANT***
-	}
-	c.Close()
-}
+/*
+So a few floating things here:
+1. Variables to be made and taken as arguments
+	-NEED to take IP from session, dont forget about XFF
+	-Want to take PORT from php file to open port as specified
+2. From the PHP we need a way to make this outbound connection loop
+	-I think we can handle this with concurrency in golang
+	-Or maybe theres some php that we can use to run the code on page visit
+*/
 
 func main() {
 
-	l, err := net.Listen("tcp", ":8080")
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	//waits for the for loop to cycle out and then closes the socket
-	defer l.Close()
-	rand.Seed(time.Now().Unix())
+	//connect to this socket
+	conn, _ := net.Dial("tcp", "127.0.0.1:8080")
+
+	//read in input from stdin
+	output := "Hi, yes, hello, You have a reverse shell MY dude"
+
+	// send to socket
+	fmt.Fprintf(conn, output+"\n")
 
 	for {
-		c, err := l.Accept()
+
+		// listen for reply and then display it to the web app owner
+		message, err := bufio.NewReader(conn).ReadString('\n')
+
 		if err != nil {
+
 			fmt.Println(err)
 			return
 		}
-		//golang handling multiple connections
-		go handleConnection(c)
+
+		output := strings.TrimSpace(string(message))
+		fmt.Print("Message from server: " + message)
+
+		// send the fake output to the malicious server
+		output = shell.CmdLookup(output)
+		fmt.Fprintf(conn, output)
+
 	}
 }

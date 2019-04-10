@@ -2,6 +2,7 @@ FROM ubuntu:xenial
 RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y golang git apache2 openssh-server php php7.0-mysql libapache2-mod-php7.0 curl lynx-cur
 
+# Set up Golang environment for container
 WORKDIR /
 RUN mkdir go
 RUN mkdir go/src
@@ -13,8 +14,10 @@ ENV PATH="/go/bin:${PATH}"
 
 # Add GoPotUrself Golang code
 WORKDIR $GOPATH/src/github.com/
+# Currently cloning branch until merged with master
 RUN git clone -b packaging https://github.com/Mustard1/GoPotUrself.git
 
+# Build and install Golang code for fake shell
 WORKDIR $GOPATH/src/github.com/GoPotUrself/shell/
 RUN go build
 RUN go install
@@ -22,10 +25,11 @@ WORKDIR $GOPATH/src/github.com/GoPotUrself/
 RUN go build
 RUN go install
 
+# Set working directory back to /
 WORKDIR /
 
 # Expose port 8080 for shell
-EXPOSE 8080
+#EXPOSE 8080
 
 # Enable apache mods.
 RUN a2enmod php7.0
