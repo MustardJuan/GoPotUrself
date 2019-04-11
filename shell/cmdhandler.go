@@ -3,6 +3,7 @@ package shell
 //Declared types for map of function calls made by user, must return string and take no args
 type vanilla func() string
 
+// CmdLookup searches map for command entered by user and executes
 func CmdLookup(cmdLineInput string) string {
 
 	//Defined Map data structure of strings using type vanilla
@@ -12,6 +13,8 @@ func CmdLookup(cmdLineInput string) string {
 		"ps":       Ps,
 		"ls":       Ls,
 		"pwd":      Pwd,
+		"df":       Df,
+		"uname":    Uname,
 	}
 
 	//Checks the input to the map to see if a function needs to be called

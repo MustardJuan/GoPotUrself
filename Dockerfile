@@ -29,7 +29,7 @@ RUN go install
 WORKDIR /
 
 # Expose port 8080 for shell
-#EXPOSE 8080
+EXPOSE 8080
 
 # Enable apache mods.
 RUN a2enmod php7.0

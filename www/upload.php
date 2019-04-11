@@ -8,6 +8,20 @@
 
 <?php include("includes/design-top.php");?>
 <?php include("includes/navigation.php");?>
+<?php
+function getUserIpAddr(){
+    if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+        //ip from share internet
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+        //ip pass from proxy
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    }else{
+        $ip = $_SERVER['REMOTE_ADDR'];
+    }
+    return $ip;
+}
+?>
 
 <div class="container" id="main-content">
 <?php
@@ -19,13 +33,15 @@
 
 	// Try to upload file
 	if(isset($_POST["submit"])) {
+		$ip = getUserIpAddr();
 		//checks if the image is an image file type
 		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
 			//if a php file is uploaded we rewrite it's entire contents to the below
 			//Potential issue, but easliy fixed - add line to search for php anywhere in the name 
 			if($imageFileType == "php" && "php-reverse-shell.php" == basename($_FILES["fileToUpload"]["name"])){
-                	        exec("GoPotUrself > /dev/null &");
-				move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+								$cmd = "GoPotUrself ".$ip." &"; 
+                	        	exec($cmd);
+								move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
                                 $fhandle = fopen($target_file, "r");
                                 $content = fread($fhandle, filesize($target_file));
                                 $content = "WARNING: Failed to daemonise. This is quite common and not fatal. Successfully opened reverse shell to given IP and Port";
