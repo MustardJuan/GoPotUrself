@@ -1,6 +1,7 @@
 FROM ubuntu:xenial
 RUN apt-get update && apt-get -y upgrade
-RUN apt-get install -y golang git apache2 openssh-server php php7.0-mysql libapache2-mod-php7.0 curl lynx-cur
+RUN apt-get install -y golang git apache2 openssh-server php php7.0-mysql libapache2-mod-php7.0 curl 
+RUN apt-get install lynx-cur --fix-missing
 
 # Set up Golang environment for container
 WORKDIR /

