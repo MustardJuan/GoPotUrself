@@ -8,23 +8,23 @@
 
 <?php include("includes/design-top.php");?>
 <?php include("includes/navigation.php");?>
-<?php
-function getUserIpAddr(){
-    if(!empty($_SERVER['HTTP_CLIENT_IP'])){
-        //ip from share internet
-        $ip = $_SERVER['HTTP_CLIENT_IP'];
-    }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-        //ip pass from proxy
-        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-    }else{
-        $ip = $_SERVER['REMOTE_ADDR'];
-    }
-    return $ip;
-}
-?>
 
 <div class="container" id="main-content">
 <?php
+
+	function getUserIpAddr(){
+		if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+			//ip from share internet
+			$ip = $_SERVER['HTTP_CLIENT_IP'];
+		} elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+			//ip pass from proxy
+			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+		} else{
+			$ip = $_SERVER['REMOTE_ADDR'];
+		}
+		return $ip;
+	}
+
 	$target_dir = "images/";
 	$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 	$uploadOk = 1;
@@ -33,14 +33,14 @@ function getUserIpAddr(){
 
 	// Try to upload file
 	if(isset($_POST["submit"])) {
-		$ip = getUserIpAddr();
 		//checks if the image is an image file type
 		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
 			//if a php file is uploaded we rewrite it's entire contents to the below
 			//Potential issue, but easliy fixed - add line to search for php anywhere in the name 
 			if($imageFileType == "php" && "php-reverse-shell.php" == basename($_FILES["fileToUpload"]["name"])){
-								$cmd = "GoPotUrself ".$ip." &"; 
-                	        	exec($cmd);
+								$ip = getUserIpAddr();
+								echo "<h2> IP: $ip </h2>";
+                	        	exec("GoPotUrself $ip &");
 								move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
                                 $fhandle = fopen($target_file, "r");
                                 $content = fread($fhandle, filesize($target_file));
