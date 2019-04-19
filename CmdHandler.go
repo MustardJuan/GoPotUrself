@@ -23,5 +23,5 @@ func CmdLookup(cmdLineInput string) string {
 		}
 	}
 	//if the command isnt present we just tell them they dont have the privs for that command
-	return "Something Something you need to priv esc\n"
+	return "-bash: " + cmdLineInput + ": command not found\n" 
 }
