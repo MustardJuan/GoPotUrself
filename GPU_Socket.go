@@ -4,7 +4,7 @@ import "net"
 import "fmt"
 import "bufio"
 import "time"
-import "rand"
+import "math/rand"
 import "strings"
 
 /*
