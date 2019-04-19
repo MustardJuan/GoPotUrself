@@ -1,7 +1,9 @@
 package main
 
+import "strings"
+
 //Declared types for map of function calls made by user, must return string and take no args
-type vanilla func() string
+type vanilla func(*string)
 
 func CmdLookup(cmdLineInput string) string {
 
@@ -15,11 +17,12 @@ func CmdLookup(cmdLineInput string) string {
 	}
 	
 	//Checks the input to the map to see if a function needs to be called
+	cmdFields := strings.Fields(cmdLineInput)
 	for cmds := range cmdList {
-		if cmdLineInput == cmds {
+		if cmdFields[0] == cmds {
 			//actual function call happens here using map, not user input
-			output := cmdList[cmds]()
-			return output
+			cmdList[cmds](&cmdLineInput)
+			return cmdLineInput
 		}
 	}
 	//if the command isnt present we just tell them they dont have the privs for that command
