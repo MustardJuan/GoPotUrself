@@ -66,7 +66,7 @@ func main() {
 		fmt.Print("Message from server: " + message)
 		
 		// send the fake output to the malicious server
-		output = CmdLookup(output) + "$ "
+		output = shell.CmdLookup(output) + "$ "
 		fmt.Fprintf(conn, output)
 
 	}
