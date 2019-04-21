@@ -6,6 +6,8 @@ import (
 	"net"
 	"os"
 	"strings"
+	"rand/time"
+	"time"
 	"github.com/GoPotUrself/shell"
 )
 
