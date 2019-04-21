@@ -1,6 +1,5 @@
 package shell
 
-func Pwd() string {
-	output := ("/home/guestUser\n")
-	return output
+func Pwd(output *string) {
+	output += ("/home/guestUser\n")
 }
