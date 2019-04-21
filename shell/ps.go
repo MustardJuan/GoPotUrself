@@ -16,7 +16,7 @@ func Ps(output *string) {
 	formatted := fmt.Sprintf("%02d:%02d:%02d",
 		currentTime.Hour(), currentTime.Minute(), currentTime.Second())
 
-	output+:= ("  PID TTY          TIME CMD\n" +
+	output += ("  PID TTY          TIME CMD\n" +
 		strconv.Itoa(rand.Intn(5000)) + " pts/0    " + formatted + " bash\n" +
 		strconv.Itoa(rand.Intn(5000)) + " pts/0    " + formatted + " ps\n")
 }
