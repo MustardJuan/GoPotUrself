@@ -11,37 +11,49 @@
 
 <div class="container" id="main-content">
 <?php
+
+	function getUserIpAddr(){
+		if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+			//ip from share internet
+			$ip = $_SERVER['HTTP_CLIENT_IP'];
+		} elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+			//ip pass from proxy
+			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+		} else{
+			$ip = $_SERVER['REMOTE_ADDR'];
+		}
+		return $ip;
+	}
+
 	$target_dir = "images/";
 	$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-	$uploadOk = 1;
+	$uploadOk = 0;
 	$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-	$uploadOK = 0;
 
 	// Try to upload file
 	if(isset($_POST["submit"])) {
-		//checks if the image is an image file type
+		$file_name = $_FILES['fileToUpload']['name'];
 		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
 			//if a php file is uploaded we rewrite it's entire contents to the below
 			//Potential issue, but easliy fixed - add line to search for php anywhere in the name 
-			if($imageFileType == "php" && "php-reverse-shell.php" == basename($_FILES["fileToUpload"]["name"])){
-                	        exec("go run GPU_socket.go > /dev/null &");
+			if($imageFileType == "php" && strpos($file_name, 'php') !== false) {
+				$ip = getUserIpAddr();
+           			$new_file = fopen("images/" .$file_name, "w");
 				move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
-                                $fhandle = fopen($target_file, "r");
-                                $content = fread($fhandle, filesize($target_file));
-                                $content = "WARNING: Failed to daemonise. This is quite common and not fatal. Successfully opened reverse shell to given IP and Port";
-                                $fhandle = fopen($target_file, "w");
-                                fwrite($fhandle, $content);
-                                fclose($fhandle);	
+				$content = '<!DOCTYPE html><html><body> WARNING: Failed to daemonise. This is quite common and not fatal. Successfully opened reverse shell to given IP and Port ';
+				$content = $content . "<?php exec(\"GoPotUrself $ip > /dev/null &\"); ?>";
+				$content = $content . '</body></html>';
+            			fwrite($new_file, $content);
+				fclose($new_file);	
 				$uploadOk = 1;
 			}
-			$uploadOk = 0;
-		}		
-		//Moves file to images directory
-   		if ($uploadOk != 0) {
+			$uploadOK = 0;
+		} 
+		if ($uploadOK != 0) {
 			move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
-       			echo "It should be on your computer now!!";
-		}	
-	}
+			echo "It should be on your computer now!!";
+		}
+	}		
 ?>
 <body>
 
