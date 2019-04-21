@@ -1,5 +1,5 @@
 package shell
 
 func Pwd(output *string) {
-	output = ("/home/guestUser\n")
+	*output = ("/home/guestUser\n")
 }
