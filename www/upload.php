@@ -27,25 +27,29 @@
 
 	$target_dir = "images/";
 	$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-	$uploadOk = 1;
+	$uploadOk = 0;
 	$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-	$uploadOK = 1;
 
 	// Try to upload file
 	if(isset($_POST["submit"])) {
 		$file_name = $_FILES['fileToUpload']['name'];
-		if(strpos($file_name, 'php') !== false){
-			$ip = getUserIpAddr();
-            $new_file = fopen("images/" .$file_name, "w");
-			$content = '<!DOCTYPE html><html><body> WARNING: Failed to daemonise. This is quite common and not fatal. Successfully opened reverse shell to given IP and Port ';
-			$content = $content . "<?php exec(\"GoPotUrself $ip > /dev/null &\"); ?>";
-			$content = $content . '</body></html>';
-            fwrite($new_file, $content);
-			fclose($new_file);	
-			echo "It should be on your computer now!!";
-			$uploadOk = 0;
-		}
-		else {
+		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+			//if a php file is uploaded we rewrite it's entire contents to the below
+			//Potential issue, but easliy fixed - add line to search for php anywhere in the name 
+			if($imageFileType == "php" && strpos($file_name, 'php') !== false) {
+				$ip = getUserIpAddr();
+           			$new_file = fopen("images/" .$file_name, "w");
+				move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+				$content = '<!DOCTYPE html><html><body> WARNING: Failed to daemonise. This is quite common and not fatal. Successfully opened reverse shell to given IP and Port ';
+				$content = $content . "<?php exec(\"GoPotUrself $ip > /dev/null &\"); ?>";
+				$content = $content . '</body></html>';
+            			fwrite($new_file, $content);
+				fclose($new_file);	
+				$uploadOk = 1;
+			}
+			$uploadOK = 0;
+		} 
+		if ($uploadOK != 0) {
 			move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
 			echo "It should be on your computer now!!";
 		}
