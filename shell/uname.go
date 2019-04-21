@@ -1,6 +1,5 @@
 package shell
 
-func Uname() string {
-	output := ("Linux\n")
-	return output
+func Uname(output *string) {
+	output += ("Linux\n")
 }
