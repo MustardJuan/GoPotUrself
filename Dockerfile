@@ -16,7 +16,7 @@ ENV PATH="/go/bin:${PATH}"
 # Add GoPotUrself Golang code
 WORKDIR $GOPATH/src/github.com/
 # Currently cloning branch until merged with master
-RUN git clone -b packaging https://github.com/Mustard1/GoPotUrself.git
+RUN git clone https://github.com/Mustard1/GoPotUrself
 
 # Build and install Golang code for fake shell
 WORKDIR $GOPATH/src/github.com/GoPotUrself/shell/
