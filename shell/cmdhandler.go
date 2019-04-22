@@ -14,6 +14,8 @@ func CmdLookup(cmdLineInput string) string {
 		"ps":       Ps,
 		"ls":       Ls,
 		"pwd":	    Pwd,
+		"uname":    Uname,
+		"df":	    Df
 	}
 	
 	//Checks the input to the map to see if a function needs to be called
