@@ -17,5 +17,5 @@ To run the container:
 ```` docker run -p 80:80 <name of container> ````
 
 From there you can open a browser and connect to localhost to see the site on the machine your hosting it on!
-Important to note that presentlt to get the full exploit running when the php reverse shell is uploaded you need to change the IP to the one you want the reverse shell to connect to and the port to 8080. We have all ports closed except for 80 and 8080 in this current uild for security reasons but will be removing this safeguard. 
+Important to note that presently to get the full exploit running when the php reverse shell is uploaded you need to change the IP to the one you want the reverse shell to connect to and the port to 8080. We have all ports closed except for 80 and 8080 in this current uild for security reasons but will be removing this safeguard. 
 
