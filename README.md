@@ -11,10 +11,10 @@ Inspiration derived from the popular Cowrie honeypot
 Basic commands follow with brief explanantions to getting the container running, assumption is that the user is at the directory where the dockerfile and relevant code is present
 
 To compile the docker container:   
-```` docker build <name of container> . ````
+```` docker build -t <name of container> . ````
 
 To run the container:   
-```` docker run -p 80:80 -t <name of container> ````
+```` docker run -p 80:80 <name of container> ````
 
 From there you can open a browser and connect to localhost to see the site on the machine your hosting it on!
 Important to note that presentlt to get the full exploit running when the php reverse shell is uploaded you need to change the IP to the one you want the reverse shell to connect to and the port to 8080. We have all ports closed except for 80 and 8080 in this current uild for security reasons but will be removing this safeguard. 
