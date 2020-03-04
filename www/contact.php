@@ -10,9 +10,9 @@
 <?php include("includes/navigation.php");?>
 
 <div class="container" id="main-content">
-	<h2>Add me on all my Socials!</h2>
+	<h2>My social media accounts where you can reach me</h2>
 	
-	<p>Insta: </p>
+	<p>Instagram: </p>
 	<p>Twitter: </p>
 	<p>Snapchat: </p>
 
