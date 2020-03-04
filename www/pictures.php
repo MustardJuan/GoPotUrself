@@ -10,7 +10,7 @@
 <?php include("includes/navigation.php");?>
 
 <div class="container" id="main-content">
-	<h2>My Vacay Pics and Life</h2>
+	<h2>Images that im preserving</h2>
 	
 	<p>
 		Images equal some sort of thing 
