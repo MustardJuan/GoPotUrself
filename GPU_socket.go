@@ -11,16 +11,6 @@ import (
 	"github.com/GoPotUrself/shell"
 )
 
-/*
-So a few floating things here:
-1. Variables to be made and taken as arguments
-	-NEED to take IP from session, dont forget about XFF
-	-Want to take PORT from php file to open port as specified
-2. From the PHP we need a way to make this outbound connection loop
-	-I think we can handle this with concurrency in golang
-	-Or maybe theres some php that we can use to run the code on page visit
-*/
-
 func main() {
 	
 	
@@ -28,12 +18,7 @@ func main() {
 	address := os.Args[1] + ":8080"
 	conn, _ := net.Dial("tcp", address)
 	
-	/*
-	Displays the initial reverse shell, improvements:
-	1.Formatting isn't perfect, time is awkward
-	2. Fixed the random time generator, maybe few hours behind normal time? 
-	3. Keep displaying dollar sign, should just append to output at bottom of loop
-	*/
+	
 	currentTime := time.Now()
 	month := currentTime.Month()
 	weekday := currentTime.Weekday()
